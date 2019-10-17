@@ -1,0 +1,8 @@
+D:\ASPNetCore\ASPCoreMentoring\ASPCoreMentoring\bin\Release\netcoreapp2.2\DataAccessLayer.deps.json
+D:\ASPNetCore\ASPCoreMentoring\ASPCoreMentoring\bin\Release\netcoreapp2.2\DataAccessLayer.dll
+D:\ASPNetCore\ASPCoreMentoring\ASPCoreMentoring\bin\Release\netcoreapp2.2\DataAccessLayer.pdb
+D:\ASPNetCore\ASPCoreMentoring\ASPCoreMentoring\obj\Release\netcoreapp2.2\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\ASPNetCore\ASPCoreMentoring\ASPCoreMentoring\obj\Release\netcoreapp2.2\DataAccessLayer.AssemblyInfoInputs.cache
+D:\ASPNetCore\ASPCoreMentoring\ASPCoreMentoring\obj\Release\netcoreapp2.2\DataAccessLayer.AssemblyInfo.cs
+D:\ASPNetCore\ASPCoreMentoring\ASPCoreMentoring\obj\Release\netcoreapp2.2\DataAccessLayer.dll
+D:\ASPNetCore\ASPCoreMentoring\ASPCoreMentoring\obj\Release\netcoreapp2.2\DataAccessLayer.pdb

@@ -1,0 +1,12 @@
+D:\ASPNetCore\ASPCoreMentoring\BusinessLayer\bin\Release\netcoreapp2.2\BusinessLayer.deps.json
+D:\ASPNetCore\ASPCoreMentoring\BusinessLayer\bin\Release\netcoreapp2.2\BusinessLayer.dll
+D:\ASPNetCore\ASPCoreMentoring\BusinessLayer\bin\Release\netcoreapp2.2\BusinessLayer.pdb
+D:\ASPNetCore\ASPCoreMentoring\BusinessLayer\bin\Release\netcoreapp2.2\DataAccessLayer.dll
+D:\ASPNetCore\ASPCoreMentoring\BusinessLayer\bin\Release\netcoreapp2.2\DataAccessLayer.pdb
+D:\ASPNetCore\ASPCoreMentoring\BusinessLayer\obj\Release\netcoreapp2.2\BusinessLayer.csprojAssemblyReference.cache
+D:\ASPNetCore\ASPCoreMentoring\BusinessLayer\obj\Release\netcoreapp2.2\BusinessLayer.csproj.CoreCompileInputs.cache
+D:\ASPNetCore\ASPCoreMentoring\BusinessLayer\obj\Release\netcoreapp2.2\BusinessLayer.AssemblyInfoInputs.cache
+D:\ASPNetCore\ASPCoreMentoring\BusinessLayer\obj\Release\netcoreapp2.2\BusinessLayer.AssemblyInfo.cs
+D:\ASPNetCore\ASPCoreMentoring\BusinessLayer\obj\Release\netcoreapp2.2\BusinessLayer.csproj.CopyComplete
+D:\ASPNetCore\ASPCoreMentoring\BusinessLayer\obj\Release\netcoreapp2.2\BusinessLayer.dll
+D:\ASPNetCore\ASPCoreMentoring\BusinessLayer\obj\Release\netcoreapp2.2\BusinessLayer.pdb
