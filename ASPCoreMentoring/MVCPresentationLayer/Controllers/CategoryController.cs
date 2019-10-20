@@ -24,10 +24,21 @@ namespace MVCPresentationLayer.Controllers
             _logger = logger;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? page)
         {
-            var pagedCategories = await _categoryService.GetPagedCategory(_config.Value.CountItemOnPage, _config.Value.PageNumber);
+            var pagedCategories = await _categoryService.GetPagedCategory(_config.Value.CountItemOnPage, page ?? _config.Value.PageNumber);
             var viewModel = pagedCategories?.Results?.Select(ConvertToCategoryViewModel);
+
+            if (pagedCategories != null)
+            {
+                var pagingInfo = new Pagination.PagingInfo()
+                {
+                    CurrentPage = pagedCategories.CurrentPage,
+                    TotalItems = pagedCategories.RowCount,
+                    ItemsPerPage = pagedCategories.PageSize
+                };
+                ViewBag.Paging = pagingInfo;
+            }
 
             return View("Index", viewModel);
         }

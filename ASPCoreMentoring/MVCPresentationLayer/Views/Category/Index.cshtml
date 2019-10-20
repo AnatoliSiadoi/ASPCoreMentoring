@@ -1,4 +1,5 @@
-﻿@model IEnumerable<MVCPresentationLayer.Models.Category.CategoryViewModel>
+﻿@using MVCPresentationLayer.Pagination
+@model IEnumerable<MVCPresentationLayer.Models.Category.CategoryViewModel>
 
 @{
     ViewData["Title"] = "Category";
@@ -8,20 +9,21 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
@@ -33,6 +35,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>
+@Html.PagedLinks((PagingInfo)ViewBag.Paging, x => Url.Action("Index", "Category", new { page = x }))

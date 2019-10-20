@@ -1,4 +1,5 @@
-﻿@model IEnumerable<MVCPresentationLayer.Models.Product.ProductViewModel>
+﻿@using MVCPresentationLayer.Pagination
+@model IEnumerable<MVCPresentationLayer.Models.Product.ProductViewModel>
 
 @{
     ViewData["Title"] = "Product";
@@ -11,42 +12,43 @@
 </p>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.QuantityPerUnit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UnitPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UnitsInStock)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UnitsOnOrder)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReorderLevel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Discontinued)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SupplierName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuantityPerUnit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitsInStock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitsOnOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReorderLevel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Discontinued)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplierName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
@@ -79,9 +81,10 @@
                 @Html.DisplayFor(modelItem => item.CategoryName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>
+@Html.PagedLinks((PagingInfo)ViewBag.Paging, x => Url.Action("Index", "Product", new { page = x }))

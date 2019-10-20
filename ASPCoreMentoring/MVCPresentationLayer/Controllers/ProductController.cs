@@ -30,10 +30,21 @@ namespace MVCPresentationLayer.Controllers
             _config = config;
             _logger = logger;
         }
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? page)
         {
-            var pagedProducts = await _productService.GetPagedProduct(_config.Value.CountItemOnPage, _config.Value.PageNumber);
+            var pagedProducts = await _productService.GetPagedProduct(_config.Value.CountItemOnPage, page ?? _config.Value.PageNumber);
             var viewModel = pagedProducts?.Results?.Select(ConvertProductDTOToViewModel);
+
+            if (pagedProducts != null)
+            {
+                var pagingInfo = new Pagination.PagingInfo()
+                {
+                    CurrentPage = pagedProducts.CurrentPage,
+                    TotalItems = pagedProducts.RowCount,
+                    ItemsPerPage = pagedProducts.PageSize
+                };
+                ViewBag.Paging = pagingInfo;
+            }
 
             return View("Index", viewModel);
         }
