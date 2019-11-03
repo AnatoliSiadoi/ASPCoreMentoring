@@ -1,0 +1,41 @@
+﻿@using MVCPresentationLayer.Models.Category
+@model MVCPresentationLayer.Models.Category.CategoryViewModel
+
+<div>
+    <h4>Upload or edit picture for category</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PictureLink)
+        </dt>
+        <dd class="col-sm-10">
+            @if (!string.IsNullOrEmpty(Model.PictureLink))
+            {
+                @Html.ActionLink("Picture", "Picture", new { id = Model.PictureLink })
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.Label("Update picture")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.Partial("UploadImage", model: new CategoryPictureViewModel { Id = Model.Id })
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+

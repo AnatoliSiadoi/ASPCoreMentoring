@@ -8,5 +8,7 @@ namespace BusinessLayer.DataTransferObject
         public string CategoryName { get; set; }
 
         public string Description { get; set; }
+
+        public string PictureLink { get; set; }
     }
 }

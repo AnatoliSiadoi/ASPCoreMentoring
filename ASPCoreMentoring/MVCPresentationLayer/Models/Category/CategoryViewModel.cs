@@ -15,5 +15,8 @@ namespace MVCPresentationLayer.Models.Category
 
         [Display(Name = "Category description")]
         public string Description { get; set; }
+
+        [Display(Name = "Image link")]
+        public string PictureLink { get; set; }
     }
 }

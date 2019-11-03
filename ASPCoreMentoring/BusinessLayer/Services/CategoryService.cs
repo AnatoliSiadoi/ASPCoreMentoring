@@ -44,6 +44,32 @@ namespace BusinessLayer.Services
             return result;
         }
 
+        public async Task<byte[]> GetPictureById(int id)
+        {
+            var category = await _categoryRepository.GetByIdAsync(id);
+
+            return category?.Picture;
+        }
+
+        public async Task<CategoryDTO> GetCategoryById(int id)
+        {
+            var category = await _categoryRepository.GetByIdAsync(id);
+            if(category != null)
+            {
+                var categoryDTO = ConvertCategoryEntityToDTO(category);
+                return categoryDTO;
+            }
+
+            return null;
+        }
+
+        public async Task UpdatePictureById(int id, byte[] picture)
+        {
+            var category = await _categoryRepository.GetByIdAsync(id);
+            category.Picture = picture;
+            await _categoryRepository.UpdateAsync(category);
+        }
+
         private PagedResult<CategoryDTO> ConvertToPagedCategoryDTO(PagedResult<CategoryEntity> inputEntity)
         {
             if (inputEntity == null)
@@ -69,6 +95,7 @@ namespace BusinessLayer.Services
                 Id = inputEntity.Id,
                 CategoryName = inputEntity.CategoryName,
                 Description = inputEntity.Description,
+                PictureLink = inputEntity.Picture == null ? string.Empty : inputEntity.Id.ToString()
             };
         }
     }

@@ -9,17 +9,23 @@
 
 <table class="table">
     <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-    </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PictureLink)
+            </th>
+            <th>
+                Create/Update
+            </th>
+        </tr>
     </thead>
     <tbody>
     @foreach (var item in Model)
@@ -33,6 +39,15 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @if (!string.IsNullOrEmpty(item.PictureLink))
+                {
+                    @Html.ActionLink("Look a Picture", "Picture", new { id = item.PictureLink })
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit Picture", "Edit", new { id = item.Id })
             </td>
         </tr>
     }

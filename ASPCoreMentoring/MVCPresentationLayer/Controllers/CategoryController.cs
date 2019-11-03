@@ -1,9 +1,10 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer.DataTransferObject;
 using BusinessLayer.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MVCPresentationLayer.Configuration;
@@ -16,12 +17,14 @@ namespace MVCPresentationLayer.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IOptions<PaginationSection> _config;
         private readonly ILogger<CategoryController> _logger;
+        private readonly ICache _cache;
 
-        public CategoryController(ICategoryService categoryService, IOptions<PaginationSection> config, ILogger<CategoryController> logger)
+        public CategoryController(ICategoryService categoryService, IOptions<PaginationSection> config, ILogger<CategoryController> logger, ICache cache)
         {
             _categoryService = categoryService;
             _config = config;
             _logger = logger;
+            _cache = cache;
         }
 
         public async Task<ActionResult> Index(int? page)
@@ -43,6 +46,53 @@ namespace MVCPresentationLayer.Controllers
             return View("Index", viewModel);
         }
 
+        public async Task<ActionResult> Edit(int id)
+        {
+            var categoryDTO = await _categoryService.GetCategoryById(id);
+            var viewModel = ConvertToCategoryViewModel(categoryDTO);
+
+            if (viewModel == null)
+                return NotFound();
+
+            return View("Edit", viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Picture(int id)
+        {
+            var picture = await _categoryService.GetPictureById(id);
+
+            if (picture == null)
+                return NotFound();
+
+            return File(picture, "image/bmp");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Picture(CategoryPictureViewModel model)
+        {
+            var categoryDTO = await _categoryService.GetCategoryById(model.Id);
+            var category = ConvertToCategoryViewModel(categoryDTO);
+            if (!ModelState.IsValid)
+                return View("Edit", category);
+
+            var picture = await ConvertToByte(model.Picture);
+
+            await _categoryService.UpdatePictureById(model.Id, picture);
+
+            return View("Edit", category);
+        }
+
+        private async Task<byte[]> ConvertToByte(IFormFile formFile)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                await formFile.CopyToAsync(memoryStream);
+
+                return memoryStream.ToArray();
+            }
+        }
+
         private CategoryViewModel ConvertToCategoryViewModel(CategoryDTO inputDTO)
         {
             if (inputDTO == null)
@@ -52,7 +102,8 @@ namespace MVCPresentationLayer.Controllers
             {
                 Id = inputDTO.Id,
                 CategoryName = inputDTO.CategoryName,
-                Description = inputDTO.Description
+                Description = inputDTO.Description,
+                PictureLink = inputDTO.PictureLink
             };
         }
     }
