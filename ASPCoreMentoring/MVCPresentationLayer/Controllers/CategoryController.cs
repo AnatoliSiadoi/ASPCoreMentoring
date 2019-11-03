@@ -17,14 +17,12 @@ namespace MVCPresentationLayer.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IOptions<PaginationSection> _config;
         private readonly ILogger<CategoryController> _logger;
-        private readonly ICache _cache;
 
-        public CategoryController(ICategoryService categoryService, IOptions<PaginationSection> config, ILogger<CategoryController> logger, ICache cache)
+        public CategoryController(ICategoryService categoryService, IOptions<PaginationSection> config, ILogger<CategoryController> logger)
         {
             _categoryService = categoryService;
             _config = config;
             _logger = logger;
-            _cache = cache;
         }
 
         public async Task<ActionResult> Index(int? page)
@@ -85,6 +83,11 @@ namespace MVCPresentationLayer.Controllers
 
         private async Task<byte[]> ConvertToByte(IFormFile formFile)
         {
+            if(formFile == null)
+            {
+                return null;
+            }
+
             using (var memoryStream = new MemoryStream())
             {
                 await formFile.CopyToAsync(memoryStream);
