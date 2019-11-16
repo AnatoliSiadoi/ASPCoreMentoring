@@ -1,0 +1,24 @@
+﻿@model IEnumerable<MVCPresentationLayer.Models.Components.Breadcrumps.BreadcrumpsViewModel>
+
+@if (Model != null && Model.Any())
+{
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            @foreach (var item in Model)
+            {
+                if (!item.IsActive)
+                {
+                    <li class="breadcrumb-item">
+                    <a asp-controller="@item.Controller" asp-action="@item.Action">@item.UIName</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="breadcrumb-item active" aria-current="page">@item.UIName</li>
+                }
+            }
+        </ol>
+    </nav>
+}
+
+

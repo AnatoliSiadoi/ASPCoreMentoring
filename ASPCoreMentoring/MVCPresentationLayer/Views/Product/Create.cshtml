@@ -1,10 +1,31 @@
-﻿@model MVCPresentationLayer.Models.Product.ProductViewModelCreate
+﻿@using MVCPresentationLayer.Models.Components.Breadcrumps
+@model MVCPresentationLayer.Models.Product.ProductViewModelCreate
 
 @{
     ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
+
+@section Header {
+    @await Component.InvokeAsync("BreadcrumbsWidget",
+    new List<BreadcrumpsItem> {
+        new BreadcrumpsItem
+        {
+            Action = "Index",
+            Controller = "Home"
+        },
+        new BreadcrumpsItem
+        {
+            Action = "Index",
+            Controller = "Product"
+        },
+        new BreadcrumpsItem
+        {
+            Action = "Create",
+            Controller = "Product"
+        }})
+}
 
 <hr />
 <div class="row">

@@ -28,29 +28,37 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @if (!string.IsNullOrEmpty(item.PictureLink))
-                {
-                    @Html.ActionLink("Look a Picture", "Picture", new { id = item.PictureLink })
-                }
-            </td>
-            <td>
-                @Html.ActionLink("Edit Picture", "Edit", new { id = item.Id })
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.PictureLink))
+                    {
+                        @*@Html.ActionLink("Look a Picture", "Picture", new { id = item.PictureLink })*@
+                        @*<a northwind-id=@item.PictureLink>Look a Picture</a>*@
+                        @Html.NorthwindImageLink(item.PictureLink, "Look a Picture");
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Edit Picture", "Edit", new { id = item.Id })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 @Html.PagedLinks((PagingInfo)ViewBag.Paging, x => Url.Action("Index", "Category", new { page = x }))
+@section Footer
+    {
+    <div class="container">
+        <p>Unfortunately, you cannot edit categories (only changing the picture is possible)!</p>
+    </div>
+}
