@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>JavaScript Client</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <button id="get_categories">Get Categories</button>
+    <button id="get_products">Get Products</button>
+    <h1 id="message_loading">Loading</h1>
+    <table id="target_table"></table>
+</body>
+</html>
+<script type="text/javascript">
+        $('#get_products').click(function(){
+            var url = "https://localhost:44357/api/ProductAPI";
+            getData(url);
+        });
+        $('#get_categories').click(function () {
+            var url = "https://localhost:44357/api/CategoryAPI";
+            getData(url);
+        });
+        $("#message_loading").hide();
+        function getData(url) {
+            $("#message_loading").show();
+            $("#target_table").empty();
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function () { alert('Done!'); },// done },
+                error: function () { alert('Error!'); },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': 'true',
+                    'Access-Control-Allow-Methods': 'GET',
+                    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+                }
+            });
+    }
+    function done(data) {
+        var tblBody = document.createElement("tbody");
+        $.each(data, function() {
+            var tblRow = tblBody.insertRow();
+            $.each(this, function(k , v) {
+                var cell = tblRow.insertCell();
+                cell.appendChild(document.createTextNode(String(v)));
+            });
+        });
+        $("#target_table").append(tblBody);
+    }
+</script>

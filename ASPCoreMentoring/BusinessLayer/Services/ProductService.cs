@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer.DataTransferObject;
 using BusinessLayer.Pagination;
@@ -29,6 +30,12 @@ namespace BusinessLayer.Services
             await _productRepository.UpdateAsync(productEntity);
         }
 
+        public async Task DeleteProductAsync(ProductDTO product)
+        {
+            var productEntity = ConvertProductDTOToEntity(product);
+            await _productRepository.DeleteAsync(productEntity);
+        }
+
         public async Task<ProductDTO> GetByIdAsync(int productId)
         {
             var productEntity = await _productRepository.GetByIdAsync(productId);
@@ -47,6 +54,46 @@ namespace BusinessLayer.Services
             }
 
             return ConvertToPagedProductDTO(result);
+        }
+
+        public async Task<IEnumerable<ProductDTO>> GetAllProducts(bool includeCategory, bool includeSupplier)
+        {
+            IEnumerable<ProductDTO> result = null;
+
+            var allProductList = await IncludeToProduct(includeCategory, includeSupplier); 
+            if (allProductList.Any())
+            {
+                result = allProductList.Select(ConvertProductEntityToDTO);
+            }
+
+            return result;
+        }
+
+        private async Task<List<ProductEntity>> IncludeToProduct(bool includeCategory, bool includeSupplier)
+        {
+            List<ProductEntity> allProductList = null;
+            if (includeCategory == false && includeSupplier == false)
+            {
+                allProductList = await _productRepository.GetAllQueryable().ToListAsync();
+                return allProductList;
+            }
+            else if (includeCategory == true && includeSupplier == true)
+            {
+                allProductList = await _productRepository.GetAllQueryable().Include(p => p.Category).Include(p => p.Supplier).ToListAsync();
+                return allProductList;
+            }
+            else if (includeCategory == true && includeSupplier == false)
+            {
+                allProductList = await _productRepository.GetAllQueryable().Include(p => p.Category).ToListAsync();
+                return allProductList;
+            }
+            else if (includeCategory == false && includeSupplier == true)
+            {
+                allProductList = await _productRepository.GetAllQueryable().Include(p => p.Supplier).ToListAsync();
+                return allProductList;
+            }
+
+            return allProductList;
         }
 
         private PagedResult<ProductDTO> ConvertToPagedProductDTO(PagedResult<ProductEntity> inputEntity)
