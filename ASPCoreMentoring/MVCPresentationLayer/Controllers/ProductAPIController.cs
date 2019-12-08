@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using BusinessLayer.DataTransferObject;
 using BusinessLayer.Services.Interfaces;
@@ -6,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MVCPresentationLayer.Filters;
 using MVCPresentationLayer.Models.Product;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace MVCPresentationLayer.Controllers
 {
@@ -23,6 +26,8 @@ namespace MVCPresentationLayer.Controllers
         }
 
         [HttpGet("")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "", typeof(IEnumerable<ProductDTO>))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, "Something went wrong!")]
         public async Task<IActionResult> GetProductsList(bool includeCategory = false, bool includeSupplier = false)
         {
             try
@@ -43,6 +48,9 @@ namespace MVCPresentationLayer.Controllers
 
         [HttpPut("{id}")]
         [ValidateModel]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Product with some identifier : was updated!")]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Product with some identifier : was not found!")]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, "Something went wrong!")]
         public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductModel model)
         {
             try
@@ -72,6 +80,8 @@ namespace MVCPresentationLayer.Controllers
 
         [HttpPost("")]
         [ValidateModel]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Product was created!")]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, "Something went wrong!")]
         public async Task<IActionResult> CreateProduct([FromBody] ProductModel model)
         {
             try
@@ -93,6 +103,9 @@ namespace MVCPresentationLayer.Controllers
         }
 
         [HttpDelete("{id}")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Product with some identifier : was deleted!")]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Product with some identifier : was not found!")]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, "Something went wrong!")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             try

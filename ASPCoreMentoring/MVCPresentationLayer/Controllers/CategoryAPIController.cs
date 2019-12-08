@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
+using BusinessLayer.DataTransferObject;
 using BusinessLayer.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MVCPresentationLayer.Filters;
 using MVCPresentationLayer.Models.Category;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace MVCPresentationLayer.Controllers
 {
@@ -22,6 +26,8 @@ namespace MVCPresentationLayer.Controllers
         }
 
         [HttpGet("")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "", typeof(IEnumerable<CategoryDTO>))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, "Something went wrong!")]
         public async Task<IActionResult> GetCategoriesList()
         {
             try
@@ -41,6 +47,9 @@ namespace MVCPresentationLayer.Controllers
         }
 
         [HttpGet("image/{id}")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "", typeof(byte[]))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Image of category with some identifier : was not found!")]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, "Something went wrong!")]
         public async Task<IActionResult> GetCategoryImageById(int id)
         {
             try
@@ -63,6 +72,9 @@ namespace MVCPresentationLayer.Controllers
 
         [HttpPut("image")]
         [ValidateModel]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Category with some identifier : was updated!")]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Category with some identifier : was not found!")]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, "Something went wrong!")]
         public async Task<IActionResult> UpdateImage([FromBody] CategoryPictureModel model)
         {
             try

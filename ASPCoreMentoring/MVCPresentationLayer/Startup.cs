@@ -14,7 +14,10 @@ using MVCPresentationLayer.Configuration;
 using MVCPresentationLayer.Filters;
 using MVCPresentationLayer.Middlewares;
 using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System;
 using System.IO;
+using System.Reflection;
 
 namespace MVCPresentationLayer
 {
@@ -59,11 +62,14 @@ namespace MVCPresentationLayer
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ISupplierService, SupplierService>();
 
+            services.AddCors();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
-                var filePath = Path.Combine(System.AppContext.BaseDirectory, "MyApi.xml");
-                //c.IncludeXmlComments(filePath);
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.XML";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 
@@ -86,6 +92,8 @@ namespace MVCPresentationLayer
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+
+            app.UseCors(builder => builder.AllowAnyOrigin());
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
