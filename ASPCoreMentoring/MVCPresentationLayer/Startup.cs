@@ -129,7 +129,7 @@ namespace MVCPresentationLayer
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseEndpointRouting();
-            //app.UseMiddleware<CacheMiddleware>();
+            app.UseMiddleware<CacheMiddleware>();
 
             app.UseHttpsRedirection();
             app.UseMvc(routes =>
