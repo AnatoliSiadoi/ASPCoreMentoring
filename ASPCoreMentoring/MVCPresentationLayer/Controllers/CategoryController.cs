@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer.DataTransferObject;
 using BusinessLayer.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,6 +13,7 @@ using MVCPresentationLayer.Models.Category;
 
 namespace MVCPresentationLayer.Controllers
 {
+    [AllowAnonymous]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -25,6 +27,7 @@ namespace MVCPresentationLayer.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public async Task<ActionResult> Index(int? page)
         {
             var pagedCategories = await _categoryService.GetPagedCategory(_config.Value.CountItemOnPage, page ?? _config.Value.PageNumber);
@@ -44,6 +47,7 @@ namespace MVCPresentationLayer.Controllers
             return View("Index", viewModel);
         }
 
+        [AllowAnonymous]
         public async Task<ActionResult> Edit(int id)
         {
             var categoryDTO = await _categoryService.GetCategoryById(id);
@@ -56,6 +60,7 @@ namespace MVCPresentationLayer.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Picture(int id)
         {
             var picture = await _categoryService.GetPictureById(id);
@@ -67,6 +72,7 @@ namespace MVCPresentationLayer.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Picture(CategoryPictureViewModel model)
         {
             var categoryDTO = await _categoryService.GetCategoryById(model.Id);

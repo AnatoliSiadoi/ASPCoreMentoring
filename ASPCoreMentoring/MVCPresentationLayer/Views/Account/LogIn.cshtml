@@ -1,0 +1,63 @@
+﻿@model MVCPresentationLayer.Models.Account.LogInViewModel
+
+@{
+    ViewData["Title"] = "LogIn";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <h1>Local LogIn</h1>
+        <hr />
+        <form asp-action="LogIn">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Remember" /> @Html.DisplayNameFor(model => model.Remember)
+                </label>
+            </div>
+            <div class="form-group">
+                <input asp-rout-returnUrl="@Model.ReturnUrl" type="submit" value="LogIn" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="ForgotPAssword">Forgot Password?</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-4">
+        <h1>External LogIn</h1>
+        <hr/>
+        @{ 
+            if(Model.ExternalLogins.Count == 0)
+            {
+                <div>No external logins configured!</div>
+            }
+            else
+            {
+                <form method = "post" asp-action="ExternalLogIn" asp-rout-returnUrl="@Model.ReturnUrl">
+                    <div>
+                        @foreach(var provider in Model.ExternalLogins)
+                        {
+                        <button type="submit" class="btn btn-primary"
+                                name="provider" value="@provider.Name">
+                            @provider.DisplayName
+                        </button>
+                        }
+                    </div>
+                </form>
+            }
+        }
+    </div>
+</div>
+
