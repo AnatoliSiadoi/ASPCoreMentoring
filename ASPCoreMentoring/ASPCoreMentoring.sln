@@ -13,10 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unit.Tests", "Unit.Tests\Un
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIClient", "APIClient\APIClient.csproj", "{FCAC5712-93A1-4B7C-B2CC-E8C3FADBE48A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IO.Swagger", "..\csharp-client\src\IO.Swagger\IO.Swagger.csproj", "{D9B35A03-FC7C-4F28-8D5C-2FC74AF89B7B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IO.Swagger.Test", "..\csharp-client\src\IO.Swagger.Test\IO.Swagger.Test.csproj", "{19F1DEBC-DE5E-4517-8062-F000CD499087}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,14 +39,6 @@ Global
 		{FCAC5712-93A1-4B7C-B2CC-E8C3FADBE48A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCAC5712-93A1-4B7C-B2CC-E8C3FADBE48A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCAC5712-93A1-4B7C-B2CC-E8C3FADBE48A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D9B35A03-FC7C-4F28-8D5C-2FC74AF89B7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D9B35A03-FC7C-4F28-8D5C-2FC74AF89B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D9B35A03-FC7C-4F28-8D5C-2FC74AF89B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D9B35A03-FC7C-4F28-8D5C-2FC74AF89B7B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
